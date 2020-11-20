@@ -48,6 +48,8 @@ jobs:
         aws-region: ap-northeast-1
     
     - name: react build
+      env:
+        REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
       run: |
         npm i
         npm run build

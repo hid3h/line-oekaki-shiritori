@@ -1,8 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import { Button } from 'antd-mobile';
+import { useEffect } from 'react';
+import liff from '@line/liff';
 
 function App() {
+  useEffect(() => {
+    console.log('useEffect')
+    liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
+  }, []);
+
   return (
     <div className="App">
       <Button type="primary">Start</Button>
