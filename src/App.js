@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { Button } from 'antd-mobile';
 
 function App() {
   return (
     <div className="App">
+      <Button type="primary">Start</Button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
