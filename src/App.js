@@ -17,15 +17,15 @@ function initializeLiff(myLiffId) {
     });
 }
 
-function sendMessage(messages) {
-  liff.sendMessages(messages)
-    .then(() => {
-      console.log('message sent');
-    })
-    .catch((err) => {
-      console.log('error', err);
-    });
-}
+// function sendMessage(messages) {
+//   liff.sendMessages(messages)
+//     .then(() => {
+//       console.log('message sent');
+//     })
+//     .catch((err) => {
+//       console.log('error', err);
+//     });
+// }
 
 function shareaTargetPicker(messages) {
   liff.shareTargetPicker(messages)
