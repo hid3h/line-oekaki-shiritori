@@ -3,6 +3,7 @@ import './App.css';
 import { Button } from 'antd-mobile';
 import { useEffect } from 'react';
 import liff from '@line/liff';
+import { useLocation } from 'react-router-dom';
 
 function initializeLiff(myLiffId) {
   liff
@@ -59,7 +60,18 @@ function startShiritori() {
   // 送ったあとになにかメッセージだしたい。line見てとか。
 }
 
+function replyShiritori() {
+  alert('TODO: 書いた絵をトークに送信')
+}
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function App() {
+  const query = useQuery()
+  const shareMode = query.get('share')
+  
   useEffect(() => {
     console.log('useEffect')
     initializeLiff(process.env.REACT_APP_LIFF_ID)
@@ -67,7 +79,7 @@ function App() {
 
   return (
     <div className="App">
-      <Button type="primary" onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
+      <ShareButton shareMode={shareMode} />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -84,6 +96,13 @@ function App() {
       </header>
     </div>
   );
+}
+
+function ShareButton(props) {
+  if (props.shareMode) {
+    return <Button type="primary" onClick={replyShiritori}>絵をトークに送信</Button>
+  }
+  return <Button type="primary" onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
 }
 
 export default App;
