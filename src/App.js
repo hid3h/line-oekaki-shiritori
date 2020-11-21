@@ -18,15 +18,15 @@ function initializeLiff(myLiffId) {
     });
 }
 
-// function sendMessage(messages) {
-//   liff.sendMessages(messages)
-//     .then(() => {
-//       console.log('message sent');
-//     })
-//     .catch((err) => {
-//       console.log('error', err);
-//     });
-// }
+function sendMessage(messages) {
+  liff.sendMessages(messages)
+    .then(() => {
+      console.log('message sent');
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+}
 
 function shareaTargetPicker(messages) {
   liff.shareTargetPicker(messages)
@@ -61,7 +61,16 @@ function startShiritori() {
 }
 
 function replyShiritori() {
-  alert('TODO: 書いた絵をトークに送信')
+  const imageMessage = {
+    "type": "image",
+    "originalContentUrl": "https://example.com/original.jpg",
+    "previewImageUrl": "https://example.com/preview.jpg"
+  }
+  const uriMessage = {
+    type: 'text',
+    text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e?share=true'
+  }
+  sendMessage([imageMessage, uriMessage])
 }
 
 function useQuery() {
