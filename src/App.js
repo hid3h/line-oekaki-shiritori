@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Button, Icon } from 'antd-mobile';
 import { useEffect, useState } from 'react';
