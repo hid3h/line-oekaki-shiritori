@@ -82,7 +82,8 @@ function App() {
       .catch((err) => {
         alert('liffアプリ初期化エラー', err)
         setError('error')
-      });
+        setLoading(false)
+      })
   }, []);
 
   if (loading) return <Icon type = "loading" />;
