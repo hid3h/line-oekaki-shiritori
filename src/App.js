@@ -1,22 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button } from 'antd-mobile';
-import { useEffect } from 'react';
+import { Button, Icon } from 'antd-mobile';
+import { useEffect, useState } from 'react';
 import liff from '@line/liff';
 import { useLocation } from 'react-router-dom';
-
-function initializeLiff(myLiffId) {
-  liff
-    .init({
-      liffId: myLiffId
-    })
-    .then(() => {
-      // alert('liff初期化成功です')
-    })
-    .catch((err) => {
-      alert('liffアプリ初期化エラー', err)
-    });
-}
 
 function sendMessage(messages) {
   liff.sendMessages(messages)
@@ -80,11 +67,26 @@ function useQuery() {
 function App() {
   const query = useQuery()
   const shareMode = query.get('share')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   
   useEffect(() => {
-    console.log('useEffect')
-    initializeLiff(process.env.REACT_APP_LIFF_ID)
+    console.count('useEffect')
+    liff
+      .init({
+        liffId: process.env.REACT_APP_LIFF_ID
+      })
+      .then(() => {
+        setLoading(false)
+      })
+      .catch((err) => {
+        alert('liffアプリ初期化エラー', err)
+        setError('error')
+      });
   }, []);
+
+  if (loading) return <Icon type = "loading" />;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="App">
