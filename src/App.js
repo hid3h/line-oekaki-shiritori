@@ -21,10 +21,10 @@ function initializeLiff(myLiffId) {
 function sendMessage(messages) {
   liff.sendMessages(messages)
     .then(() => {
-      console.log('message sent');
+      alert('トークにもどれ的なメッセージ');
     })
     .catch((err) => {
-      console.log('error', err);
+      alert('error', err);
     });
 }
 
