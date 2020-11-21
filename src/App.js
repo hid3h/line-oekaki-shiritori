@@ -4,10 +4,24 @@ import { Button } from 'antd-mobile';
 import { useEffect } from 'react';
 import liff from '@line/liff';
 
+
+function initializeLiff(myLiffId) {
+  liff
+    .init({
+        liffId: myLiffId
+    })
+    .then(() => {
+        alert('liff初期化成功です')
+    })
+    .catch((err) => {
+      alert('liffアプリ初期化できてないですね')
+    });
+}
+
 function App() {
   useEffect(() => {
     console.log('useEffect')
-    liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
+    initializeLiff(process.env.REACT_APP_LIFF_ID)
   }, []);
 
   return (
