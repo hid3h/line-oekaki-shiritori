@@ -9,7 +9,7 @@ class S3
 
   def put(data)
     file_name = Digest::SHA1.hexdigest(data)
-    bucket = s3.bucket(IMAGE_UPLOAD_BUCKET)
+    bucket = @s3.bucket(IMAGE_UPLOAD_BUCKET)
     obj = bucket.object(file_name)
     obj.put(body: data)
     file_name
