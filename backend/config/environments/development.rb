@@ -4,4 +4,5 @@ Jets.application.configure do
 
   # config.action_mailer.raise_delivery_errors = false
   # Docs: http://rubyonjets.com/docs/email-sending/
+  config.cors = true
 end

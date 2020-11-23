@@ -4,6 +4,18 @@ import { useEffect, useState } from 'react';
 import liff from '@line/liff';
 import { useLocation } from 'react-router-dom';
 import Canvas from './components/Canvas';
+import Axios from 'axios'
+
+async function uploadImage() {
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:2001/api/v1/' : '/api/v1/'
+  try {
+    const response = await Axios.get(baseUrl + 'images');
+    console.log(response);
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function sendMessage(messages) {
   liff.sendMessages(messages)
@@ -27,7 +39,7 @@ function shareaTargetPicker(messages) {
     })
 }
 
-function startShiritori() {
+async function startShiritori() {
   // TODO: ここで絵の画像も送る？
   const message = {
     type: 'text',
@@ -43,11 +55,14 @@ function startShiritori() {
     text: 'https://liff.line.me/1655261379-gGzn8K3e?share=true'
   }
 
+  const res = await uploadImage()
+  console.log('up snd', res)
+
   shareaTargetPicker([message, imageMessage, uriMessage])
   // 送ったあとになにかメッセージだしたい。line見てとか。
 }
 
-function replyShiritori() {
+async function replyShiritori() {
   const imageMessage = {
     "type": "image",
     "originalContentUrl": "https://example.com/original.jpg",
