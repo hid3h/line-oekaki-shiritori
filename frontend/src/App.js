@@ -49,7 +49,7 @@ function App() {
   const query                       = useQuery()
   const shareMode                   = query.get('share')
   const [loading, setLoading]       = useState(true)
-  const [btnLoading, setbtnLoading] = useState(false)
+  const [btnLoading, setBtnLoading] = useState(false)
   const [error, setError]           = useState(null)
   const canvasRef                   = useRef();
   
@@ -73,7 +73,7 @@ function App() {
   if (error) return <p>{error}</p>;
 
   async function startShiritori() {
-    setbtnLoading(true)
+    setBtnLoading(true)
     // 画像を保存してURL取得
     console.count(canvasRef.current.toDataURL())
     const res = await uploadImage(canvasRef.current.toDataURL())
