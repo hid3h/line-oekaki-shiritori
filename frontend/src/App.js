@@ -1,9 +1,9 @@
 import './App.css';
 import { Button, Icon } from 'antd-mobile';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import liff from '@line/liff';
 import { useLocation } from 'react-router-dom';
-import Canvas from './components/Canvas';
+import SignatureCanvas from 'react-signature-canvas'
 import Axios from 'axios'
 
 async function uploadImage() {
@@ -39,29 +39,6 @@ function shareaTargetPicker(messages) {
     })
 }
 
-async function startShiritori() {
-  // TODO: ここで絵の画像も送る？
-  const message = {
-    type: 'text',
-    text: 'お絵かきしりとりを始めませんか'
-  }
-  const imageMessage = {
-    "type": "image",
-    "originalContentUrl": "https://example.com/original.jpg",
-    "previewImageUrl": "https://example.com/preview.jpg"
-  }
-  const uriMessage = {
-    type: 'text',
-    text: 'https://liff.line.me/1655261379-gGzn8K3e?share=true'
-  }
-
-  const res = await uploadImage()
-  console.log('up snd', res)
-
-  shareaTargetPicker([message, imageMessage, uriMessage])
-  // 送ったあとになにかメッセージだしたい。line見てとか。
-}
-
 async function replyShiritori() {
   const imageMessage = {
     "type": "image",
@@ -84,6 +61,7 @@ function App() {
   const shareMode = query.get('share')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const canvasRef = useRef();
   
   useEffect(() => {
     console.count('useEffect')
@@ -104,19 +82,65 @@ function App() {
   if (loading) return <Icon type = "loading" />;
   if (error) return <p>{error}</p>;
 
+  async function startShiritori() {
+    // TODO: ここで絵の画像も送る？
+    const message = {
+      type: 'text',
+      text: 'お絵かきしりとりを始めませんか'
+    }
+    const imageMessage = {
+      "type": "image",
+      "originalContentUrl": "https://example.com/original.jpg",
+      "previewImageUrl": "https://example.com/preview.jpg"
+    }
+    const uriMessage = {
+      type: 'text',
+      text: 'https://liff.line.me/1655261379-gGzn8K3e?share=true'
+    }
+  
+    console.count(canvasRef.current.toDataURL())
+    const res = await uploadImage()
+    console.log('up snd', res)
+  
+    shareaTargetPicker([message, imageMessage, uriMessage])
+    // 送ったあとになにかメッセージだしたい。line見てとか。
+  }
+
+  function ShareButton(props) {
+    if (props.shareMode) {
+      return <Button type="primary" onClick={replyShiritori}>絵をトークに送信</Button>
+    }
+    return <Button type="primary" onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
+  }
+
+  console.count('render')
   return (
     <div className="App">
       <ShareButton shareMode={shareMode} />
-      <Canvas />
+      <SignatureCanvas
+        ref={(ref) => {
+          canvasRef.current = ref;
+        }}
+        dotSize={0.1}
+        maxWidth={1}
+        canvasProps={canvasProps()}
+        backgroundColor='rgba(255,255,255)'
+      />
+        
     </div>
   );
 }
 
-function ShareButton(props) {
-  if (props.shareMode) {
-    return <Button type="primary" onClick={replyShiritori}>絵をトークに送信</Button>
+function canvasProps() {
+  let tempWidth = window.innerWidth;
+  const maxWidth = 600;
+  if (tempWidth > maxWidth) {
+    tempWidth = maxWidth;
   }
-  return <Button type="primary" onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
+
+  const h = tempWidth;
+  const w = tempWidth;
+  return {width: w, height: h, className: 'sigCanvas'}
 }
 
 export default App;
