@@ -5,6 +5,7 @@ Jets.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
+      resources :images, only: [:index, :create]
       post 'webhook', to: 'webhook#receive'
       get 'test', to: 'webhook#test'
     end
