@@ -37,7 +37,7 @@ export class CdkDeployStack extends cdk.Stack {
     });
 
     new s3deploy.BucketDeployment(this, 'DeployWebsite', {
-      sources: [s3deploy.Source.asset('../build')],
+      sources: [s3deploy.Source.asset('../frontend/build')],
       destinationBucket: websiteBucket,
       distribution
     });

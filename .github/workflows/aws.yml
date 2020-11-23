@@ -51,6 +51,7 @@ jobs:
       env:
         REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
       run: |
+        cd frontend
         npm i
         npm run build
 
