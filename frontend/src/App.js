@@ -73,6 +73,7 @@ function App() {
   if (error) return <p>{error}</p>;
 
   async function startShiritori() {
+    console.log('startShiritori start')
     setBtnLoading(true)
     // 画像を保存してURL取得
     console.count(canvasRef.current.toDataURL())
