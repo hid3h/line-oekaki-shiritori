@@ -75,8 +75,8 @@ function App() {
   async function startShiritori() {
     setBtnLoading(true)
 
-    // const res = await uploadImage(canvasRef.current.toDataURL())
-    // const fileName = res.data.key
+    const res = await uploadImage(canvasRef.current.toDataURL())
+    const fileName = res.data.key
     const fileName = 'tes'
 
     // ターゲットピッカーを開く
