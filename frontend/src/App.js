@@ -77,7 +77,6 @@ function App() {
 
     const res = await uploadImage(canvasRef.current.toDataURL())
     const fileName = res.data.key
-    const fileName = 'tes'
 
     // ターゲットピッカーを開く
     const message = {
