@@ -1,7 +1,7 @@
 require 'aws-sdk-s3'
 
 class S3
-  IMAGE_UPLOAD_BUCKET = 'line-oekaki-images'
+  IMAGE_UPLOAD_BUCKET = 'line-oekaki-images/img'
 
   def initialize
     @s3 = Aws::S3::Resource.new(region: 'ap-northeast-1')

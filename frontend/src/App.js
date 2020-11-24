@@ -73,21 +73,21 @@ function App() {
   if (error) return <p>{error}</p>;
 
   async function startShiritori() {
-    console.log('startShiritori start')
     setBtnLoading(true)
     // 画像を保存してURL取得
-    console.count(canvasRef.current.toDataURL())
     const res = await uploadImage(canvasRef.current.toDataURL())
-    console.log('up snd', res.data)
+    const fileName = res.data.key
+    
     // ターゲットピッカーを開く
     const message = {
       type: 'text',
       text: 'お絵かきしりとりを始めませんか'
     }
+    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/' + fileName
     const imageMessage = {
       "type": "image",
-      "originalContentUrl": "https://example.com/original.jpg",
-      "previewImageUrl": "https://example.com/preview.jpg"
+      "originalContentUrl": imageUrl,
+      "previewImageUrl": imageUrl
     }
     const uriMessage = {
       type: 'text',
@@ -95,7 +95,8 @@ function App() {
     }
   
     shareaTargetPicker([message, imageMessage, uriMessage])
-    // 送ったあとになにかメッセージだす？。line見てとか。
+    alert('メッセージを送信しました。トークをご確認ください。')
+    setBtnLoading(false) // 一旦ここに
   }
 
   async function replyShiritori() {
