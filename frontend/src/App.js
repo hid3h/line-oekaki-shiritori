@@ -74,16 +74,17 @@ function App() {
 
   async function startShiritori() {
     setBtnLoading(true)
-    // 画像を保存してURL取得
-    const res = await uploadImage(canvasRef.current.toDataURL())
-    const fileName = res.data.key
-    
+
+    // const res = await uploadImage(canvasRef.current.toDataURL())
+    // const fileName = res.data.key
+    const fileName = 'tes'
+
     // ターゲットピッカーを開く
     const message = {
       type: 'text',
       text: 'お絵かきしりとりを始めませんか'
     }
-    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/' + fileName
+    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/img/' + fileName
     const imageMessage = {
       "type": "image",
       "originalContentUrl": imageUrl,
@@ -96,20 +97,30 @@ function App() {
   
     shareaTargetPicker([message, imageMessage, uriMessage])
     alert('メッセージを送信しました。トークをご確認ください。')
+
     setBtnLoading(false) // 一旦ここに
   }
 
   async function replyShiritori() {
+    setBtnLoading(true)
+
+    const res = await uploadImage(canvasRef.current.toDataURL())
+    const fileName = res.data.key
+    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/img/' + fileName
+
     const imageMessage = {
       "type": "image",
-      "originalContentUrl": "https://example.com/original.jpg",
-      "previewImageUrl": "https://example.com/preview.jpg"
+      "originalContentUrl": imageUrl,
+      "previewImageUrl": imageUrl
     }
     const uriMessage = {
       type: 'text',
       text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e?share=true'
     }
     sendMessage([imageMessage, uriMessage])
+
+    alert('メッセージを送信しました。トークをご確認ください。')
+    setBtnLoading(false)
   }
 
   function ShareButton(props) {
