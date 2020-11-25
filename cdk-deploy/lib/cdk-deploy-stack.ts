@@ -5,7 +5,7 @@ import * as s3 from '@aws-cdk/aws-s3'
 import * as s3deploy from '@aws-cdk/aws-s3-deployment'
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
-export const serviceName = 'oekaki'
+export const serviceName = 'oekaki2'
 
 export class CdkDeployStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
