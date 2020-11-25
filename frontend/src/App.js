@@ -83,7 +83,7 @@ function App() {
       type: 'text',
       text: 'お絵かきしりとりを始めませんか'
     }
-    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/img/' + fileName
+    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/img/' + fileName
     const imageMessage = {
       "type": "image",
       "originalContentUrl": imageUrl,
@@ -105,7 +105,7 @@ function App() {
 
     const res = await uploadImage(canvasRef.current.toDataURL())
     const fileName = res.data.key
-    const imageUrl = 'https://d3iepbrpt8w1z5.cloudfront.net/img/' + fileName
+    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/img/' + fileName
 
     const imageMessage = {
       "type": "image",
