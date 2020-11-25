@@ -47,7 +47,7 @@ function useQuery() {
 
 function App() {
   const query                       = useQuery()
-  const shareMode                   = query.get('share')
+  const startMode                   = query.get('start')
   const [loading, setLoading]       = useState(true)
   const [btnLoading, setBtnLoading] = useState(false)
   const [error, setError]           = useState(null)
@@ -91,7 +91,7 @@ function App() {
     }
     const uriMessage = {
       type: 'text',
-      text: 'https://liff.line.me/1655261379-gGzn8K3e?share=true'
+      text: 'https://liff.line.me/1655261379-gGzn8K3e'
     }
   
     shareaTargetPicker([message, imageMessage, uriMessage])
@@ -114,7 +114,7 @@ function App() {
     }
     const uriMessage = {
       type: 'text',
-      text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e?share=true'
+      text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e'
     }
     sendMessage([imageMessage, uriMessage])
 
@@ -124,7 +124,7 @@ function App() {
 
   function ShareButton(props) {
     const loading = props.btnLoading
-    if (props.shareMode) {
+    if (!props.startMode) {
       return <Button type="primary" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
     }
     return <Button type="primary" loading={loading} disabled={loading} onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
@@ -133,7 +133,7 @@ function App() {
   console.count('render')
   return (
     <div className="App">
-      <ShareButton shareMode={shareMode} btnLoading={btnLoading} />
+      <ShareButton startMode={startMode} btnLoading={btnLoading} />
       <SignatureCanvas
         ref={(ref) => {
           canvasRef.current = ref;
