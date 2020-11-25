@@ -1,5 +1,5 @@
 import './App.css';
-import { Button, Icon } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
 import liff from '@line/liff';
 import { useLocation } from 'react-router-dom';
@@ -19,10 +19,10 @@ async function uploadImage(data) {
   }
 }
 
-function sendMessage(messages) {
+function sendMessage(messages, callback) {
   liff.sendMessages(messages)
     .then(() => {
-      alert('トークにもどれ的なメッセージ');
+      callback()
     })
     .catch((err) => {
       alert('error', err);
@@ -48,29 +48,29 @@ function useQuery() {
 function App() {
   const query                       = useQuery()
   const startMode                   = query.get('start')
-  const [loading, setLoading]       = useState(true)
+  // const [loading, setLoading]       = useState(true)
   const [btnLoading, setBtnLoading] = useState(false)
-  const [error, setError]           = useState(null)
+  // const [error, setError]           = useState(null)
   const canvasRef                   = useRef();
   
   useEffect(() => {
-    // console.count('useEffect')
+    console.count('renderのあとuseEffect')
     liff
       .init({
         liffId: process.env.REACT_APP_LIFF_ID
       })
       .then(() => {
-        setLoading(false)
+        // setLoading(false)
       })
       .catch((err) => {
         alert('liffアプリ初期化エラー', err)
-        setError('error')
-        setLoading(false)
+        // setError('error')
+        // setLoading(false)
       })
   }, []);
 
-  if (loading) return <Icon type = "loading" />;
-  if (error) return <p>{error}</p>;
+  // if (loading) return <Icon type = "loading" />;
+  // if (error) return <p>{error}</p>;
 
   async function startShiritori() {
     setBtnLoading(true)
@@ -116,10 +116,10 @@ function App() {
       type: 'text',
       text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e'
     }
-    sendMessage([imageMessage, uriMessage])
-
-    alert('メッセージを送信しました。トークをご確認ください。')
-    setBtnLoading(false)
+    sendMessage([imageMessage, uriMessage], () => {
+      setBtnLoading(false)
+      alert('メッセージを送信しました。トークをご確認ください。')
+    })
   }
 
   function ShareButton(props) {
