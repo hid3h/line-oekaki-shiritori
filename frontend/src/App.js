@@ -95,7 +95,7 @@ function App() {
     }
   
     shareaTargetPicker([message, imageMessage, uriMessage])
-    alert('メッセージを送信しました。トークをご確認ください。')
+    // alert('メッセージを送信しました。トークをご確認ください。')
 
     setBtnLoading(false) // 一旦ここに
   }
