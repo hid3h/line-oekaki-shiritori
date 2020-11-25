@@ -118,7 +118,7 @@ function App() {
     }
     sendMessage([imageMessage, uriMessage], () => {
       setBtnLoading(false)
-      alert('メッセージを送信しました。トークをご確認ください。')
+      liff.closeWindow()
     })
   }
 
