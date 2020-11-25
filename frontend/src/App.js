@@ -54,7 +54,7 @@ function App() {
   const canvasRef                   = useRef();
   
   useEffect(() => {
-    console.count('useEffect')
+    // console.count('useEffect')
     liff
       .init({
         liffId: process.env.REACT_APP_LIFF_ID
