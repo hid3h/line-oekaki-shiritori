@@ -4,6 +4,6 @@ class Api::V1::WebhookController < ApplicationController
   end
 
   def test
-    render :json => {test: 'oekaki'}
+    render :json => {test: 'oekaki2'}
   end
 end

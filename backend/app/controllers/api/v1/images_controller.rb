@@ -6,6 +6,6 @@ class Api::V1::ImagesController < ApplicationController
   end
 
   def index
-    render :json => {test: 'oekimage getaki'}
+    render :json => {test: 'oekimage2 getaki'}
   end
 end
