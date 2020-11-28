@@ -132,7 +132,7 @@ function App() {
 
   console.count('render')
   return (
-    <div className="App">
+    <div className="app">
       <ShareButton startMode={startMode} btnLoading={btnLoading} />
       <SignatureCanvas
         ref={(ref) => {
@@ -143,7 +143,6 @@ function App() {
         canvasProps={canvasProps()}
         backgroundColor='rgba(255,255,255)'
       />
-        
     </div>
   );
 }
