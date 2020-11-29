@@ -130,6 +130,15 @@ function App() {
     return <Button type="primary" loading={loading} disabled={loading} onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
   }
 
+  function onClickUndo() {
+    const data = canvasRef.current.toData();
+
+    if (data) {
+      data.pop(); // remove the last dot or line
+      canvasRef.current.fromData(data);
+    }
+  }
+
   console.count('render')
   return (
     <div className="app">
@@ -143,6 +152,7 @@ function App() {
         canvasProps={canvasProps()}
         backgroundColor='rgba(255,255,255)'
       />
+      <Button type="primary" onClick={onClickUndo}>ひとつ戻す</Button>
     </div>
   );
 }
