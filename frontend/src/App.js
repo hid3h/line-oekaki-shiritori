@@ -133,7 +133,7 @@ function App() {
   console.count('render')
   return (
     <div className="app">
-      <ShareButton startMode={startMode} btnLoading={btnLoading} />
+      <Button type="primary" onClick={onClickUndo}>ひとつ戻す</Button>
       <SignatureCanvas
         ref={(ref) => {
           canvasRef.current = ref;
@@ -143,7 +143,7 @@ function App() {
         canvasProps={canvasProps()}
         backgroundColor='rgba(255,255,255)'
       />
-      <Button type="primary" onClick={onClickUndo}>ひとつ戻す</Button>
+      <ShareButton startMode={startMode} btnLoading={btnLoading} />
     </div>
   );
 }
