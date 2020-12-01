@@ -48,9 +48,7 @@ function useQuery() {
 function App() {
   const query                       = useQuery()
   const startMode                   = query.get('start')
-  // const [loading, setLoading]       = useState(true)
   const [btnLoading, setBtnLoading] = useState(false)
-  // const [error, setError]           = useState(null)
   const canvasRef                   = useRef();
   
   useEffect(() => {
@@ -60,17 +58,11 @@ function App() {
         liffId: process.env.REACT_APP_LIFF_ID
       })
       .then(() => {
-        // setLoading(false)
       })
       .catch((err) => {
         alert('liffアプリ初期化エラー', err)
-        // setError('error')
-        // setLoading(false)
       })
   }, []);
-
-  // if (loading) return <Icon type = "loading" />;
-  // if (error) return <p>{error}</p>;
 
   async function startShiritori() {
     setBtnLoading(true)
@@ -95,7 +87,6 @@ function App() {
     }
   
     shareaTargetPicker([message, imageMessage, uriMessage])
-    // alert('メッセージを送信しました。トークをご確認ください。')
 
     setBtnLoading(false) // 一旦ここに
   }
