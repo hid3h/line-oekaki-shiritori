@@ -10,3 +10,8 @@
   max-width: 600px;
   margin: 0 auto;
 }
+
+a.send-talk {
+  background-color: #00C300;
+  color: #fff;
+}

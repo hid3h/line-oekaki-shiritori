@@ -116,7 +116,7 @@ function App() {
   function ShareButton(props) {
     const loading = props.btnLoading
     if (!props.startMode) {
-      return <Button type="primary" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
+      return <Button className="send-talk" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
     }
     return <Button type="primary" loading={loading} disabled={loading} onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
   }
