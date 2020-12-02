@@ -25,7 +25,7 @@ function sendMessage(messages, callback) {
       callback()
     })
     .catch((err) => {
-      alert('error', err);
+      alert(`送信エラー: ${err.message}`)
     });
 }
 
@@ -60,7 +60,7 @@ function App() {
       .then(() => {
       })
       .catch((err) => {
-        alert('liffアプリ初期化エラー', err)
+        alert(`liffアプリ初期化エラー: ${err.message}`)
       })
   }, []);
 
