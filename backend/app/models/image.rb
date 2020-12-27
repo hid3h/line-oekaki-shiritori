@@ -3,12 +3,34 @@ class Image
 
   class << self
     def upload(data:)
-      p "upload start", Jets.env.production?, Jets.env.development?
+      file_name = Digest::SHA1.hexdigest(data)
+
+      split        = data.split(',')
+      body         = split[1]
+      content_type = get_content_type(split[0]) # "data:image/png;base64"
+      key          = "img/" + file_name
+
       if Jets.env.production?
         return S3.new(
           image_upload_bucket: IMAGE_UPLOAD_BUCKET
-        ).put(data)
+        ).put(
+          body: body,
+          key: key,
+          content_type: content_type
+        )
       end
+
+      # ローカルの場合backendはdockerで閉じてるのでfrontend側に画像をアップするのは無理
+      # 一旦keyだけ返しておく
+      key
+    end
+
+    private
+
+    def get_content_type(str)
+      str2 = str.split(':')[1]
+      str3 = str2.split(';')[0]
     end
   end
+  
 end

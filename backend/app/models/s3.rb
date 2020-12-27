@@ -6,14 +6,7 @@ class S3
     @client = Aws::S3::Client.new(region: 'ap-northeast-1')
   end
 
-  def put(data)
-    file_name = Digest::SHA1.hexdigest(data)
-
-    split = data.split(',')
-    body = split[1]
-    content_type = get_content_type(split[0]) # "data:image/png;base64"
-    key = "img/" + file_name
-
+  def put(body:, key:, content_type:)
     @client.put_object({
       body: Base64.decode64(body), 
       bucket: @image_upload_bucket, 
