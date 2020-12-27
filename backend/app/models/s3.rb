@@ -8,13 +8,12 @@ class S3
 
   def put(body:, key:, content_type:)
     @client.put_object({
-      body: Base64.decode64(body), 
-      bucket: @image_upload_bucket, 
-      key: key, 
-      content_type: content_type,
+      body:             Base64.decode64(body), 
+      bucket:           @image_upload_bucket, 
+      key:              key, 
+      content_type:     content_type,
       content_encoding: 'base64'
     })
-    file_name
   end
 
   private

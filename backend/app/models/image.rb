@@ -11,18 +11,19 @@ class Image
       key          = "img/" + file_name
 
       if Jets.env.production?
-        return S3.new(
+        S3.new(
           image_upload_bucket: IMAGE_UPLOAD_BUCKET
         ).put(
           body: body,
           key: key,
           content_type: content_type
         )
+        return file_name
       end
 
       # ローカルの場合backendはdockerで閉じてるのでfrontend側に画像をアップするのは無理
-      # 一旦keyだけ返しておく
-      key
+      # 一旦file_nameだけ返しておく
+      file_name
     end
 
     private
