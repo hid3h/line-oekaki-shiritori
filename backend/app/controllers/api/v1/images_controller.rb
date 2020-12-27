@@ -1,7 +1,7 @@
 class Api::V1::ImagesController < ApplicationController
   def create
     data = params[:data]
-    file_name = S3.new().put(data)
+    file_name = Image.upload(data: data)
     render :json => {key: file_name}
   end
 

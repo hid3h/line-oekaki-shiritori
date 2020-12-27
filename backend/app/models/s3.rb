@@ -1,9 +1,8 @@
 require 'aws-sdk-s3'
 
 class S3
-  IMAGE_UPLOAD_BUCKET = 'line-oekaki-images'
-
-  def initialize
+  def initialize(image_upload_bucket:)
+    @image_upload_bucket = image_upload_bucket
     @client = Aws::S3::Client.new(region: 'ap-northeast-1')
   end
 
@@ -17,7 +16,7 @@ class S3
 
     @client.put_object({
       body: Base64.decode64(body), 
-      bucket: IMAGE_UPLOAD_BUCKET, 
+      bucket: @image_upload_bucket, 
       key: key, 
       content_type: content_type,
       content_encoding: 'base64'
