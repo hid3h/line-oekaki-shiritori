@@ -114,7 +114,7 @@ function App() {
     }
     const uriMessage = {
       type: 'text',
-      text: '絵をかく -> https://liff.line.me/1655261379-gGzn8K3e'
+      text: 'https://liff.line.me/1655261379-gGzn8K3e'
     }
     sendMessage([imageMessage, uriMessage], () => {
       setBtnLoading(false)
