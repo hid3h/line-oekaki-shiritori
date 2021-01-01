@@ -50,16 +50,16 @@ jobs:
     - name: react build
       env:
         REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
+      working-directory: frontend
       run: |
-        cd frontend
         npm i
         npm run build
 
     - name: cdk deploy
       env:
         AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+      working-directory: frontend
       run: |
-        cd cdk-deploy
         npm i
         npm run build
         AWS_ACCOUNT=$AWS_ACCOUNT npm run cdk deploy
@@ -90,11 +90,11 @@ jobs:
         ECR_REPOSITORY: eshiritori-rails
         IMAGE_TAG: ${{ github.sha }}
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      working-directory: backend
       run: |
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        cd backend
         docker build --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
