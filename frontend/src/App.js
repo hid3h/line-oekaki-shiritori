@@ -2,7 +2,6 @@ import './App.css';
 import { Button } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
 import liff from '@line/liff';
-import { useLocation } from 'react-router-dom';
 import SignatureCanvas from 'react-signature-canvas'
 import { uploadImage } from './api/image';
 
@@ -16,25 +15,7 @@ function sendMessage(messages, callback) {
     });
 }
 
-function shareaTargetPicker(messages) {
-  liff.shareTargetPicker(messages)
-    .then((res) => {
-      if (res) {
-        console.log(`[${res.status}] Message sent!`)
-      }
-    })
-    .catch((err) => {
-      // バツで閉じたりしたとき
-    })
-}
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 function App() {
-  const query                       = useQuery()
-  const startMode                   = query.get('start')
   const [btnLoading, setBtnLoading] = useState(false)
   const canvasRef                   = useRef();
   
@@ -51,33 +32,6 @@ function App() {
         alert(`liffアプリ初期化エラー: ${err.message}`)
       })
   }, []);
-
-  async function startShiritori() {
-    setBtnLoading(true)
-
-    const res = await uploadImage(canvasRef.current.toDataURL())
-    const fileName = res.data.key
-
-    // ターゲットピッカーを開く
-    const message = {
-      type: 'text',
-      text: 'お絵かきしりとりを始めませんか'
-    }
-    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/img/' + fileName
-    const imageMessage = {
-      "type": "image",
-      "originalContentUrl": imageUrl,
-      "previewImageUrl": imageUrl
-    }
-    const uriMessage = {
-      type: 'text',
-      text: 'https://liff.line.me/1655261379-gGzn8K3e'
-    }
-  
-    shareaTargetPicker([message, imageMessage, uriMessage])
-
-    setBtnLoading(false) // 一旦ここに
-  }
 
   async function replyShiritori() {
     setBtnLoading(true)
@@ -103,10 +57,7 @@ function App() {
 
   function ShareButton(props) {
     const loading = props.btnLoading
-    if (!props.startMode) {
-      return <Button className="send-talk" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
-    }
-    return <Button type="primary" loading={loading} disabled={loading} onClick={startShiritori}>友達とお絵かきしりとりを始める</Button>
+    return <Button className="send-talk" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
   }
 
   function onClickUndo() {
@@ -131,7 +82,7 @@ function App() {
         canvasProps={canvasProps()}
         backgroundColor='rgba(255,255,255)'
       />
-      <ShareButton startMode={startMode} btnLoading={btnLoading} />
+      <ShareButton btnLoading={btnLoading} />
     </div>
   );
 }
