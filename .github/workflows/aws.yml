@@ -58,7 +58,7 @@ jobs:
     - name: cdk deploy
       env:
         AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
-      working-directory: frontend
+      working-directory: cdk-deploy
       run: |
         npm i
         npm run build
