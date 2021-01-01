@@ -11,24 +11,24 @@
     "cdk": "cdk --require-approval never"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.31.0",
+    "@aws-cdk/assert": "1.80.x",
     "@types/jest": "^24.9.1",
     "@types/node": "10.17.5",
-    "aws-cdk": "1.31.x",
+    "aws-cdk": "1.80.x",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.8.2",
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.31.0",
-    "@aws-cdk/aws-cloudfront": "^1.31.0",
-    "@aws-cdk/aws-ec2": "^1.31.0",
-    "@aws-cdk/aws-ecs": "^1.31.0",
-    "@aws-cdk/aws-lambda": "^1.31.0",
-    "@aws-cdk/aws-s3": "^1.31.0",
-    "@aws-cdk/aws-s3-deployment": "^1.31.0",
-    "@aws-cdk/core": "^1.31.0",
+    "@aws-cdk/aws-apigateway": "1.80.x",
+    "@aws-cdk/aws-cloudfront": "1.80.x",
+    "@aws-cdk/aws-ec2": "1.80.x",
+    "@aws-cdk/aws-ecs": "1.80.x",
+    "@aws-cdk/aws-lambda": "1.80.x",
+    "@aws-cdk/aws-s3": "1.80.x",
+    "@aws-cdk/aws-s3-deployment": "1.80.x",
+    "@aws-cdk/core": "1.80.x",
     "source-map-support": "^0.5.16"
   }
 }
