@@ -4,29 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import liff from '@line/liff';
 import { useLocation } from 'react-router-dom';
 import SignatureCanvas from 'react-signature-canvas'
-import Axios from 'axios'
-
-async function uploadImage(data) {
-  // ngrok使って実機で試すときローカルサーバーにつながらないので
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      data: {
-        key: 'examplKey'
-      }
-    }
-  }
-
-  const baseUrl = '/api/v1/'
-  try {
-    const response = await Axios.post(baseUrl + 'images', {
-      data: data,
-    });
-    console.log(response);
-    return response
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { uploadImage } from './api/image';
 
 function sendMessage(messages, callback) {
   liff.sendMessages(messages)
@@ -67,6 +45,7 @@ function App() {
         liffId: process.env.REACT_APP_LIFF_ID
       })
       .then(() => {
+    　  console.count('init成功')
       })
       .catch((err) => {
         alert(`liffアプリ初期化エラー: ${err.message}`)
@@ -108,9 +87,9 @@ function App() {
     const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/img/' + fileName
 
     const imageMessage = {
-      "type": "image",
-      "originalContentUrl": imageUrl,
-      "previewImageUrl": imageUrl
+      type: "image",
+      originalContentUrl: imageUrl,
+      previewImageUrl: imageUrl
     }
     const uriMessage = {
       type: 'text',
