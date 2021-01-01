@@ -1,19 +1,12 @@
-Jets.application.routes.draw do
-  # root "jets/public#show"
-  
-  # get "/api/v1", to: 'application#health'
+Rails.application.routes.draw do
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get "/api/v1", to: 'application#health'
 
   namespace 'api' do
     namespace 'v1' do
-      resources :images, only: [:index, :create]
       post 'webhook', to: 'webhook#receive'
-      get 'test', to: 'webhook#test'
+      get 'webhook/test', to: 'webhook#test'
     end
   end
-
-  # The jets/public#show controller can serve static utf8 content out of the public folder.
-  # Note, as part of the deploy process Jets uploads files in the public folder to s3
-  # and serves them out of s3 directly. S3 is well suited to serve static assets.
-  # More info here: https://rubyonjets.com/docs/extras/assets-serving/
-  # any "*catchall", to: "jets/public#show"
 end
