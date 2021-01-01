@@ -38,7 +38,7 @@ function App() {
 
     const res = await uploadImage(canvasRef.current.toDataURL())
     const fileName = res.data.key
-    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/img/' + fileName
+    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/uploads/' + fileName
 
     const imageMessage = {
       type: "image",
