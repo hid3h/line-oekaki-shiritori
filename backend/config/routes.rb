@@ -5,8 +5,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      post 'webhook', to: 'webhook#receive'
-      get 'webhook/test', to: 'webhook#test'
+      resources :images, only: [:create]
     end
   end
 end

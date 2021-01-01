@@ -36,5 +36,14 @@ module Myapp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    if ENV.fetch("RAILS_ENV") == 'development'
+      config.middleware.insert_before 0, Rack::Cors do
+        allow do
+          origins '127.0.0.1:3000'
+          resource '*', headers: :any, methods: [:get, :post, :options, :delete], credentials: true
+        end
+      end
+    end
   end
 end
