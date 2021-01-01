@@ -3,21 +3,20 @@ class Image
 
   class << self
     def upload(data:)
-      file_name = Digest::SHA1.hexdigest(data)
+      split = data.split(',')
+      body  = split[1]
 
-      split        = data.split(',')
-      body         = split[1]
-      content_type = get_content_type(split[0]) # "data:image/png;base64"
-      key          = "img/" + file_name
+      image_data_binary = Base64.decode64(body)
 
-      path = 'public/' + key
-      File.open(path, "w+b") do |f|
-        f.write(body)
-      end
+      t = Tempfile.new
+      t.binmode
+      t << image_data_binary
+      t.rewind
 
-      # ローカルの場合backendはdockerで閉じてるのでfrontend側に画像をアップするのは無理
-      # 一旦file_nameだけ返しておく
-      file_name
+      uploader = PictureUploader.new
+      uploader.store!(t)
+      
+      uploader.filename
     end
 
     private
