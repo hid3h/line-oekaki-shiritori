@@ -1,7 +1,15 @@
 import Axios from 'axios'
+import { isNgrok } from '../Util';
 
 export async function uploadImage(data) {
-  // PCで開発中のときは画像アップできるようにしたい
+  // ngrokのときはローカルのapiの方もngrokしてないとつながらない。面倒なのでそれはしない。
+  if (isNgrok()) {
+    return {
+      data: {
+        key: 'keyName'
+      }
+    }
+  }
 
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:2000/api/v1/' : '/api/v1/'
   try {

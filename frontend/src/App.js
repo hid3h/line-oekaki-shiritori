@@ -1,36 +1,19 @@
 import './App.css';
 import { Button } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
-import liff from '@line/liff';
 import SignatureCanvas from 'react-signature-canvas'
-import { uploadImage } from './api/image';
-
-function sendMessage(messages, callback) {
-  liff.sendMessages(messages)
-    .then(() => {
-      callback()
-    })
-    .catch((err) => {
-      alert(`送信エラー: ${err.message}`)
-    });
-}
+import { uploadImage } from './api/Image';
+import { initLiff, closeLiffWindow, sendLineMessage } from './api/LiffApi';
+import { currentBaseUrl } from './Util';
 
 function App() {
   const [btnLoading, setBtnLoading] = useState(false)
   const canvasRef                   = useRef();
-  
+
   useEffect(() => {
-    console.count('renderのあとuseEffect')
-    liff
-      .init({
-        liffId: process.env.REACT_APP_LIFF_ID
-      })
-      .then(() => {
-    　  console.count('init成功')
-      })
-      .catch((err) => {
-        alert(`liffアプリ初期化エラー: ${err.message}`)
-      })
+    console.count('useEffect start')
+    initLiff()
+    console.count('useEffect end')
   }, []);
 
   async function replyShiritori() {
@@ -38,7 +21,7 @@ function App() {
 
     const res = await uploadImage(canvasRef.current.toDataURL())
     const fileName = res.data.key
-    const imageUrl = 'https://d27ubz7sb3sg5u.cloudfront.net/uploads/' + fileName
+    const imageUrl = `${currentBaseUrl()}/uploads/` + fileName
 
     const imageMessage = {
       type: "image",
@@ -49,15 +32,20 @@ function App() {
       type: 'text',
       text: 'https://liff.line.me/1655261379-gGzn8K3e'
     }
-    sendMessage([imageMessage, uriMessage], () => {
-      setBtnLoading(false)
-      liff.closeWindow()
-    })
+    await sendLineMessage([imageMessage, uriMessage])
+
+    setBtnLoading(false)
+    closeLiffWindow()
   }
 
   function ShareButton(props) {
     const loading = props.btnLoading
-    return <Button className="send-talk" loading={loading} disabled={loading} onClick={replyShiritori}>絵をトークに送信</Button>
+    return <Button
+      className="send-talk"
+      loading={loading}
+      disabled={loading}
+      onClick={replyShiritori}
+    >絵をトークに送信</Button>
   }
 
   function onClickUndo() {
