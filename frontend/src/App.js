@@ -20,7 +20,8 @@ function App() {
 
     async function initLiff2() {
       const result = await initLiff()
-      setInitResult(result)
+      setInitResult(result.getAccessToken() + '<-init成功してるのにアクセストークンがとれてないかも？ こっちはid' + result.id)
+      // alert('initは走った')
     }
     initLiff2()
     console.count('useEffect end')
@@ -82,7 +83,7 @@ function App() {
       />
       <ShareButton btnLoading={btnLoading} />
       <p>useEffect起動回数 -> {initCount}</p>
-      <p>initResult(成功してるときはnullなので何も表示されないはず) -> {initResult}</p>
+      <p>initResult(idが表示されてると初期化成功) -> {initResult}</p>
     </div>
   );
 }

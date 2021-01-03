@@ -1,12 +1,12 @@
 import liff from "@line/liff"
 
 export async function initLiff() {
-  console.log('init start')
-  const result = await liff.init({
+  console.log('init start', liff.id)
+  await liff.init({
       liffId: process.env.REACT_APP_LIFF_ID
     })
-  console.log('init end')
-  return result
+  console.log('init end', liff.id)
+  return liff
 }
 
 export async function sendLineMessage(messages) {
