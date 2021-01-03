@@ -1,6 +1,4 @@
 class Image
-  IMAGE_UPLOAD_BUCKET = 'line-oekaki-images'
-
   class << self
     def upload(data:)
       split = data.split(',')
