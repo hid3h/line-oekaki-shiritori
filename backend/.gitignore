@@ -26,3 +26,4 @@
 /config/master.key
 
 /frontend/node_modules
+/public/packs
