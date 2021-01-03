@@ -16,7 +16,6 @@ export async function uploadImage(data) {
     const response = await Axios.post(baseUrl + 'images', {
       data: data,
     });
-    console.log(response);
     return response
   } catch (error) {
     console.error(error);

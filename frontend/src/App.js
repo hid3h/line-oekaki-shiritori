@@ -9,10 +9,20 @@ import { currentBaseUrl } from './Util';
 function App() {
   const [btnLoading, setBtnLoading] = useState(false)
   const canvasRef                   = useRef();
+  const [initCount, setInitCount]   = useState(0)
+  const [initResult, setInitResult]   = useState(null)
 
   useEffect(() => {
     console.count('useEffect start')
-    initLiff()
+    setInitCount((initCount) => {
+      return initCount + 1
+    })
+
+    async function initLiff2() {
+      const result = await initLiff()
+      setInitResult(result)
+    }
+    initLiff2()
     console.count('useEffect end')
   }, []);
 
@@ -71,6 +81,8 @@ function App() {
         backgroundColor='rgba(255,255,255)'
       />
       <ShareButton btnLoading={btnLoading} />
+      <p>useEffect起動回数 -> {initCount}</p>
+      <p>initResult(成功してるときはnullなので何も表示されないはず) -> {initResult}</p>
     </div>
   );
 }
