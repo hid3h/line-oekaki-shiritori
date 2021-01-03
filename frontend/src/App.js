@@ -1,5 +1,5 @@
 import './App.css';
-import { Button } from 'antd-mobile';
+import { Button, Icon } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
 import SignatureCanvas from 'react-signature-canvas'
 import { uploadImage } from './api/Image';
@@ -8,27 +8,24 @@ import { currentBaseUrl } from './Util';
 import liff from '@line/liff';
 
 function App() {
-  const [btnLoading, setBtnLoading] = useState(false)
-  const canvasRef                   = useRef();
-  const [initCount, setInitCount]   = useState(0)
-  const [initResult, setInitResult]   = useState(null)
+  const [btnLoading, setBtnLoading]   = useState(false)
+  const canvasRef                     = useRef();
+  const [liffLoading, setLiffLoading] = useState(true)
 
   useEffect(() => {
     console.count('useEffect start')
-    setInitCount((initCount) => {
-      return initCount + 1
-    })
 
     liff.init({
       liffId: process.env.REACT_APP_LIFF_ID
     })
     .then(() => {
-      alert(`init 成功${liff.id}`)
-      setInitResult(liff.id)
+      console.count('init 成功')
+      // alert(`init 成功${liff.id}`)
+      setLiffLoading(false)
     })
     .catch((err) => {
       // Error happens during initialization
-      alert(err.code, err.message);
+      alert(`${err.message}`);
     });
 
     console.count('useEffect end')
@@ -76,6 +73,16 @@ function App() {
   }
 
   console.count('render')
+  if (liffLoading) {
+    return (
+      <div className='liff-loading'>
+        <Icon type='loading' />
+        <p>読み込み中…</p>
+        <p>時間がかかる場合は右上のXボタンで画面を閉じて再度開いてください。</p>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <Button type="primary" onClick={onClickUndo}>ひとつ戻す</Button>
@@ -89,8 +96,6 @@ function App() {
         backgroundColor='rgba(255,255,255)'
       />
       <ShareButton btnLoading={btnLoading} />
-      <p>useEffect起動回数 -> {initCount}</p>
-      <p>initResult(idが表示されてると初期化成功) -> {initResult}</p>
     </div>
   );
 }

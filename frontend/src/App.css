@@ -15,3 +15,8 @@ a.send-talk {
   background-color: #00C300;
   color: #fff;
 }
+
+.liff-loading {
+  text-align: center;
+  margin-top: 50px;
+}
