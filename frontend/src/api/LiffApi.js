@@ -2,10 +2,12 @@ import liff from "@line/liff"
 
 export async function initLiff() {
   console.log('init start', liff.id)
+  alert('init start')
   await liff.init({
       liffId: process.env.REACT_APP_LIFF_ID
     })
   console.log('init end', liff.id)
+  alert('init end')
   return liff
 }
 
