@@ -32,37 +32,37 @@ on:
 name: Deploy to Amazon S3
 
 jobs:
-  cdk-deploy:
-    name: CdkDeploy
-    runs-on: ubuntu-latest
+  # cdk-deploy:
+  #   name: CdkDeploy
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-1
+  #   - name: Configure AWS credentials
+  #     uses: aws-actions/configure-aws-credentials@v1
+  #     with:
+  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       aws-region: ap-northeast-1
     
-    - name: react build
-      env:
-        REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
-      working-directory: frontend
-      run: |
-        npm i
-        npm run build
+  #   - name: react build
+  #     env:
+  #       REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
+  #     working-directory: frontend
+  #     run: |
+  #       npm i
+  #       npm run build
 
-    - name: cdk deploy
-      env:
-        AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
-      working-directory: cdk-deploy
-      run: |
-        npm i
-        npm run build
-        AWS_ACCOUNT=$AWS_ACCOUNT npm run cdk deploy
+  #   - name: cdk deploy
+  #     env:
+  #       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+  #     working-directory: cdk-deploy
+  #     run: |
+  #       npm i
+  #       npm run build
+  #       AWS_ACCOUNT=$AWS_ACCOUNT npm run cdk deploy
   
   app-deploy:
     name: AppDeploy
