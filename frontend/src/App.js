@@ -3,8 +3,9 @@ import { Button } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
 import SignatureCanvas from 'react-signature-canvas'
 import { uploadImage } from './api/Image';
-import { initLiff, closeLiffWindow, sendLineMessage } from './api/LiffApi';
+import { closeLiffWindow, sendLineMessage } from './api/LiffApi';
 import { currentBaseUrl } from './Util';
+import liff from '@line/liff';
 
 function App() {
   const [btnLoading, setBtnLoading] = useState(false)
@@ -18,12 +19,18 @@ function App() {
       return initCount + 1
     })
 
-    async function initLiff2() {
-      const result = await initLiff()
-      setInitResult(result.getAccessToken() + '<-init成功してるのにアクセストークンがとれてないかも？ こっちはid' + result.id)
-      // alert('initは走った')
-    }
-    initLiff2()
+    liff.init({
+      liffId: process.env.REACT_APP_LIFF_ID
+    })
+    .then(() => {
+      alert(`init 成功${liff.id}`)
+      setInitResult(liff.id)
+    })
+    .catch((err) => {
+      // Error happens during initialization
+      alert(err.code, err.message);
+    });
+
     console.count('useEffect end')
   }, []);
 
