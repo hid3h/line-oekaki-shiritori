@@ -32,22 +32,6 @@ on:
 name: Deploy to Amazon S3
 
 jobs:
-  webpack-build:
-    name: WebpackBuild
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    
-    - name: build
-      env:
-        REACT_APP_LIFF_ID: ${{ secrets.REACT_APP_LIFF_ID }}
-      working-directory: backend/frontend
-      run: |
-        npm i
-        npm run build:prod
-  
   app-deploy:
     name: AppDeploy
     runs-on: ubuntu-latest
@@ -66,6 +50,12 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+    
+    - name: WebpackBuild
+      working-directory: backend/frontend
+      run: |
+        npm i
+        npm run build:prod
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
