@@ -1,1 +1,3 @@
-console.count('start js')
+window.onload = function() {
+  console.count('start onload')
+}
