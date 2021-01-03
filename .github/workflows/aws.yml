@@ -50,6 +50,10 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Create .env file
+      working-directory: backend/frontend
+      run: echo "${{ secrets.REACT_APP_LIFF_ID }}" > .env
     
     - name: WebpackBuild
       working-directory: backend/frontend

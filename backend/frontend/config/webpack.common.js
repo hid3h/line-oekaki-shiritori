@@ -1,5 +1,5 @@
-const path = require('path');
-const glob = require('glob');
+const path   = require('path');
+const glob   = require('glob');
 
 const packs = path.join(__dirname, '../packs');
 

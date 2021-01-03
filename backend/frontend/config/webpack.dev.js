@@ -1,5 +1,6 @@
-const ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin         = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv                 = require('dotenv-webpack');
 
 const path = require('path');
 
@@ -17,6 +18,11 @@ module.exports = merge(common, {
       fileName: 'manifest.json',
       writeToFileEmit: true
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+
+    // https://webpack.js.org/plugins/environment-plugin/#dotenvplugin
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+    })
   ],
 });
