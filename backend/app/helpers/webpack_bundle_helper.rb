@@ -13,7 +13,7 @@ module WebpackBundleHelper
 
   private
 
-  MANIFEST_FILE     = 'manifest.json'.freeze
+  MANIFEST_FILE = 'manifest.json'.freeze
 
   def manifest
     @manifest ||= JSON.parse(File.read(manifest_path))
