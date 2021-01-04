@@ -53,7 +53,7 @@ jobs:
 
     - name: Create .env file
       working-directory: backend/frontend
-      run: echo "${{ secrets.REACT_APP_LIFF_ID }}" > .env
+      run: echo "REACT_APP_LIFF_ID=${{ secrets.REACT_APP_LIFF_ID }}" > .env
     
     - name: WebpackBuild
       working-directory: backend/frontend
