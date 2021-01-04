@@ -1,5 +1,8 @@
 import liff from '@line/liff';
-import { sendLineMessage } from '../liff-api';
+import { 
+  sendLineMessage,
+  closeLiffWindow
+} from '../liff-api';
 
 window.onload = function() {
   console.count('start onload')
@@ -31,7 +34,17 @@ function initializeApp() {
   document.getElementById("send")
     .addEventListener(
       'click',
-      sendLineMessage,
+      onClickSendMessage,
       false
     );
+}
+
+async function onClickSendMessage() {
+  const uriMessage = {
+    type: 'text',
+    text: 'テスト固定メッセージ'
+  }
+  const messages = [uriMessage]
+  await sendLineMessage(messages)
+  closeLiffWindow()
 }

@@ -11,12 +11,7 @@ export async function initLiff() {
   return liff
 }
 
-export async function sendLineMessage() {
-  const uriMessage = {
-    type: 'text',
-    text: 'https://liff.line.me/1655261379-gGzn8K3e'
-  }
-  const messages = [uriMessage]
+export async function sendLineMessage(messages) {
   try {
     const result = await liff.sendMessages(messages)
     console.log('re', result)
