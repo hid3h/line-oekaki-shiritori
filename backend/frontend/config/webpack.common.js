@@ -3,7 +3,7 @@ const glob   = require('glob');
 
 const packs = path.join(__dirname, '../packs');
 
-const targets = glob.sync(path.join(packs, '**/*.js'));
+const targets = glob.sync(path.join(packs, '**/*'));
 const entry = targets.reduce((entry, target) => {
   const bundle = path.relative(packs, target);
   const ext = path.extname(bundle);
@@ -44,24 +44,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [
-          "style-loader",
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    "postcss-preset-env",
-                    {
-                      // Options
-                    },
-                  ],
-                ],
-              },
-            },
-          },
-        ],
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
       },
     ]
   }
