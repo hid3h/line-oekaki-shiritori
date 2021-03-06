@@ -1,6 +1,6 @@
 const path = require('path');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -9,9 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, '../public/packs'),
   },
   plugins: [
-    new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    }),
+    new Dotenv(),
     new WebpackManifestPlugin({
       publicPath: '/packs/'
     }),
