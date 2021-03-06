@@ -52,11 +52,11 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Create .env file
-      working-directory: backend/frontend
+      working-directory: frontend
       run: echo "REACT_APP_LIFF_ID=${{ secrets.REACT_APP_LIFF_ID }}" > .env
     
     - name: WebpackBuild
-      working-directory: backend/frontend
+      working-directory: frontend
       run: |
         npm i
         npm run build:prod
@@ -68,7 +68,6 @@ jobs:
         ECR_REPOSITORY: eshiritori-rails
         IMAGE_TAG: ${{ github.sha }}
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      working-directory: backend
       run: |
         # Build a docker container and
         # push it to ECR so that it can
@@ -83,7 +82,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: backend/task-definition.json
+        task-definition: task-definition.json
         container-name: rails
         image: ${{ steps.build-image.outputs.image }}
 
