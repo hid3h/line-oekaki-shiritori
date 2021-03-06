@@ -21,6 +21,7 @@
     "webpack-manifest-plugin": "^3.0.0"
   },
   "dependencies": {
+    "@line/liff": "^2.8.0",
     "autoprefixer": "^10.2.1",
     "rails-ujs": "^5.2.4-4",
     "stimulus": "^2.0.0",
