@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* rails new . --skip-active-record --skip-sprockets --skip-javascript --skip-turbolinks --skip-active-storage

@@ -3,4 +3,8 @@
   <p class="pt-6 space-y-4">↓ボタン表示されるはず</p>
   <button data-action="click->home#sendTalk">トークに送信aaa</button>
   <p>↑liff.initが成功してるとボタンが表示される↑</p>
+  <%= form_with url: "/images" do |form| %>
+    <%= form.text_field :title %>
+    <%= form.button "記録する", type: "submit", class: "btn bg-pink-400", data: { "disable-with": "記録しています..." } %>
+  <% end %>
 </div>
