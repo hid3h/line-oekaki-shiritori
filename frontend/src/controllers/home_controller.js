@@ -51,7 +51,7 @@ export default class extends StimulusController {
         'X-CSRF-Token': this.csrf_token(),
       },
       redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'strict-origin-when-cross-origin', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
     })
     .then(response => response.json())
