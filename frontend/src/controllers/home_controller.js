@@ -56,7 +56,6 @@ export default class extends StimulusController {
     })
     .then(response => response.json())
     .then((data) => {
-      console.log(data)
       const imageUrl = `${this.currentBaseUrl()}/uploads/` + data.imageFileName
 
       const imageMessage = {
@@ -79,7 +78,6 @@ export default class extends StimulusController {
   }
 
   sendImageAndMessage(imageMessage, textMessage) {
-    console.log('imageMessage', imageMessage)
     liff.sendMessages([
       imageMessage,
       textMessage
