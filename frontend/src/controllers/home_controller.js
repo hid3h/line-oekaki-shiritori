@@ -11,7 +11,7 @@ export default class extends StimulusController {
     // if (!document.documentElement.hasAttribute("data-turbo-preview")) {
     //   this.setChart()
     // }
-    const myLiffId = process.env.REACT_APP_LIFF_ID
+    const myLiffId = this.liffId()
     this.initializeLiff(myLiffId);
 
     this.initSignaturePad(this.canvasTarget)
@@ -32,8 +32,7 @@ export default class extends StimulusController {
         // initializeApp();
       })
       .catch((err) => {
-        document.getElementById("liffAppContent").classList.add('hidden');
-        document.getElementById("liffInitErrorMessage").classList.remove('hidden');
+        window.alert(err)
       });
   }
 
@@ -55,23 +54,54 @@ export default class extends StimulusController {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
     })
-    .then((res) => {
-      window.alert("res" + res.body)
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data)
+      const imageUrl = `${this.currentBaseUrl()}/uploads/` + data.imageFileName
+
+      const imageMessage = {
+        type:               "image",
+        originalContentUrl: imageUrl,
+        previewImageUrl:    imageUrl
+      }
+      const uriMessage = {
+        type: 'text',
+        text: this.liffUrl()
+      }
+      this.sendImageAndMessage(
+        imageMessage,
+        uriMessage
+      )
     })
     .catch((err) => {
       window.alert("err" + err)
     })
-    
-      const uriMessage = {
-      type: 'text',
-      text: 'テスト固定メッセージ'
-    }
-    // liff.sendMessages([uriMessage])
-    //   .then(() => {
-    //     window.alert("送信成功")
-    //   })
-    //   .catch((e) => {
-    //     window.alert(e)
-    //   })
+  }
+
+  sendImageAndMessage(imageMessage, textMessage) {
+    console.log('imageMessage', imageMessage)
+    liff.sendMessages([
+      imageMessage,
+      textMessage
+    ])
+    .then(() => {
+      window.alert("送信成功")
+    })
+    .catch((e) => {
+      window.alert(e)
+    })
+  }
+
+  liffId() {
+    return process.env.REACT_APP_LIFF_ID
+  }
+
+  liffUrl() {
+    return `https://liff.line.me/${this.liffId()}`
+  }
+
+  currentBaseUrl() {
+    const location = window.location
+    return `${location.protocol}//${location.host}`
   }
 }
