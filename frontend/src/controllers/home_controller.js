@@ -4,6 +4,8 @@ import SignaturePad from 'signature_pad'
 
 export default class extends StimulusController {
 
+  static targets = [ "canvas" ]
+
   initialize() {
     // 二回走ってる。
     // if (!document.documentElement.hasAttribute("data-turbo-preview")) {
@@ -12,14 +14,11 @@ export default class extends StimulusController {
     const myLiffId = process.env.REACT_APP_LIFF_ID
     this.initializeLiff(myLiffId);
 
-    const canvas = document.querySelector("canvas");
-    this.initSignaturePad(canvas)
+    this.initSignaturePad(this.canvasTarget)
   }
 
   initSignaturePad(canvas) {
-
-    const signaturePad = new SignaturePad(canvas);
-    console.log('yeeee', canvas)
+    new SignaturePad(canvas);
   }
 
   initializeLiff(myLiffId) {
@@ -39,10 +38,31 @@ export default class extends StimulusController {
   }
 
   sendTalk() {
-    const canvas = document.querySelector("canvas");
-    console.log('canvas', canvas)
-    console.log('canvas.toDataUrl(', canvas.toDataURL())
-    const uriMessage = {
+    const url = "/images"
+    const data = {imageData: this.canvasTarget.toDataURL()}
+
+    fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRF-Token': this.csrf_token(),
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+    })
+    .then((res) => {
+      window.alert("res" + res.body)
+    })
+    .catch((err) => {
+      window.alert("err" + err)
+    })
+    
+      const uriMessage = {
       type: 'text',
       text: 'テスト固定メッセージ'
     }
@@ -54,14 +74,4 @@ export default class extends StimulusController {
     //     window.alert(e)
     //   })
   }
-
-  // onClickSendMessage() {
-  //   const uriMessage = {
-  //     type: 'text',
-  //     text: 'テスト固定メッセージ'
-  //   }
-  //   const messages = [uriMessage]
-  //   await sendLineMessage(messages)
-  //   closeLiffWindow()
-  // }
 }
