@@ -28,6 +28,20 @@ export default class extends StimulusController {
       });
   }
 
+  sendTalk() {
+    const uriMessage = {
+      type: 'text',
+      text: 'テスト固定メッセージ'
+    }
+    liff.sendMessages([uriMessage])
+      .then(() => {
+        window.alert("送信成功")
+      })
+      .catch((e) => {
+        window.alert(e)
+      })
+  }
+
   // onClickSendMessage() {
   //   const uriMessage = {
   //     type: 'text',
