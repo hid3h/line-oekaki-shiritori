@@ -33,5 +33,7 @@ module Myapp
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.session_store :cookie_store, key: '_eshiritori_session', secure: Rails.env.production?, expire_after: 12.weeks
+    config.middleware.use ActionDispatch::Cookies # Required for all session management
+    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
   end
 end
