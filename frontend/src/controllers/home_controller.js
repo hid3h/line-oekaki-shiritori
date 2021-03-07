@@ -1,5 +1,6 @@
 import StimulusController from "./stimulus_controller"
 import liff from '@line/liff';
+import SignaturePad from 'signature_pad'
 
 export default class extends StimulusController {
 
@@ -10,6 +11,15 @@ export default class extends StimulusController {
     // }
     const myLiffId = process.env.REACT_APP_LIFF_ID
     this.initializeLiff(myLiffId);
+
+    const canvas = document.querySelector("canvas");
+    this.initSignaturePad(canvas)
+  }
+
+  initSignaturePad(canvas) {
+
+    const signaturePad = new SignaturePad(canvas);
+    console.log('yeeee', canvas)
   }
 
   initializeLiff(myLiffId) {
@@ -29,17 +39,20 @@ export default class extends StimulusController {
   }
 
   sendTalk() {
+    const canvas = document.querySelector("canvas");
+    console.log('canvas', canvas)
+    console.log('canvas.toDataUrl(', canvas.toDataURL())
     const uriMessage = {
       type: 'text',
       text: 'テスト固定メッセージ'
     }
-    liff.sendMessages([uriMessage])
-      .then(() => {
-        window.alert("送信成功")
-      })
-      .catch((e) => {
-        window.alert(e)
-      })
+    // liff.sendMessages([uriMessage])
+    //   .then(() => {
+    //     window.alert("送信成功")
+    //   })
+    //   .catch((e) => {
+    //     window.alert(e)
+    //   })
   }
 
   // onClickSendMessage() {
