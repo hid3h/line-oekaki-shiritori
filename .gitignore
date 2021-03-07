@@ -24,3 +24,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/frontend/node_modules
+/public/packs
+/public/uploads
+.env
