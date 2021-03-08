@@ -31,7 +31,11 @@ export default class extends StimulusController {
     canvas.width = w;
     canvas.height = h;
 
-    new SignaturePad(canvas);
+    const options = {
+      backgroundColor: "rgb(255,255,255)"
+    }
+
+    this._sigPad = new SignaturePad(canvas, options);
   }
 
   initializeLiff(myLiffId) {
@@ -50,11 +54,11 @@ export default class extends StimulusController {
   }
 
   canvasUndo() {
-    const data = this.canvasTarget.toData();
+    const data = this._sigPad.toData();
 
     if (data) {
       data.pop(); // remove the last dot or line
-      this.canvasTarget.fromData(data);
+      this._sigPad.fromData(data);
     }
   }
 
