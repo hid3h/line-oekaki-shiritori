@@ -18,6 +18,18 @@ export default class extends StimulusController {
   }
 
   initSignaturePad(canvas) {
+    let tempWidth = window.innerWidth;
+
+    if (tempWidth > maxWidth) {
+      tempWidth = maxWidth;
+    }
+
+    const h = tempWidth;
+    const w = tempWidth;
+
+    canvas.width = w;
+    canvas.height = h;
+    
     new SignaturePad(canvas);
   }
 
