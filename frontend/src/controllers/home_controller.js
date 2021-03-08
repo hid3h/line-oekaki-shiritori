@@ -29,7 +29,7 @@ export default class extends StimulusController {
 
     canvas.width = w;
     canvas.height = h;
-    
+
     new SignaturePad(canvas);
   }
 
@@ -46,6 +46,15 @@ export default class extends StimulusController {
       .catch((err) => {
         window.alert(err)
       });
+  }
+
+  canvasUndo() {
+    const data = this.canvasTarget.toData();
+
+    if (data) {
+      data.pop(); // remove the last dot or line
+      this.canvasTarget.fromData(data);
+    }
   }
 
   sendTalk() {
