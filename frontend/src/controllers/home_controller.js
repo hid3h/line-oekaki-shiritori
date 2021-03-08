@@ -50,7 +50,7 @@ export default class extends StimulusController {
 
   sendTalk() {
     const url = "/images"
-    const data = {imageData: this.canvasTarget.toDataURL('image/jpeg')}
+    const data = {imageData: this.canvasTarget.toDataURL()}
 
     fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
