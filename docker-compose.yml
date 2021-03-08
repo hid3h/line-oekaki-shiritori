@@ -14,7 +14,7 @@ services:
     volumes:
       - ./:/myapp
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: development
     # env_file: .env
 
   # db:
