@@ -32,12 +32,12 @@ export default class extends StimulusController {
     canvas.height = h;
 
     const options = {
+      minWidth: 0.5,
+      maxWidth: 0.5,
       backgroundColor: "rgb(255,255,255)"
     }
 
-    const signaturePad = new SignaturePad(canvas, options);
-    signaturePad.dotSize = 0.1
-    this._sigPad = signaturePad
+    this._sigPad = new SignaturePad(canvas, options);
   }
 
   initializeLiff(myLiffId) {
