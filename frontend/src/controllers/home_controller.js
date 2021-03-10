@@ -46,9 +46,7 @@ export default class extends StimulusController {
         liffId: myLiffId
       })
       .then(() => {
-        // start to use LIFF's api
         console.count("start to use LIFF's api")
-        // initializeApp();
       })
       .catch((err) => {
         window.alert(err)
@@ -101,7 +99,7 @@ export default class extends StimulusController {
       )
     })
     .catch((err) => {
-      window.alert("err" + err)
+      window.alert("sendTalkError: " + err)
     })
   }
 
@@ -111,7 +109,7 @@ export default class extends StimulusController {
       textMessage
     ])
     .then(() => {
-      window.alert("送信成功")
+      liff.closeWindow()
     })
     .catch((e) => {
       window.alert(e)
