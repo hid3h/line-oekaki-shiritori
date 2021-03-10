@@ -1,8 +1,5 @@
-<div class="container max-w-screen-sm m-0 m-auto" data-controller="home">
+<div class="container max-w-screen-sm m-0 m-auto text-center" data-controller="home">
+  <button data-action="click->home#canvasUndo" class="base-button bg-indigo-500 text-white">ひとつ戻す</button>
   <canvas class="bg-white" data-home-target="canvas"></canvas>
-  <p class="pt-6 space-y-4">↓ボタン表示されるはず</p>
-  <button data-action="click->home#sendTalk">トークに送信aaa</button>
-  <p>↑liff.initが成功してるとボタンが表示される↑</p>
-  <button data-action="click->home#canvasUndo">戻す</button>
-
+  <button data-action="click->home#sendTalk" class="base-button bg-green-500 text-white">絵をトークに送信</button>
 </div>
