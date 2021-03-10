@@ -62,7 +62,12 @@ export default class extends StimulusController {
     }
   }
 
-  sendTalk() {
+  toDisabled(target) {
+    target.setAttribute("disabled", true);
+  }
+
+  sendTalk(event) {
+    this.toDisabled(event.currentTarget)
     const url = "/images"
     const data = {imageData: this.canvasTarget.toDataURL()}
 
