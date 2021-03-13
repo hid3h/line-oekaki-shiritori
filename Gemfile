@@ -20,6 +20,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'better_errors'     # エラー画面がリッチになるやつ
+  gem 'binding_of_caller' # エラー画面でirb使えるやつ
 end
 
 group :development do
@@ -46,3 +48,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 画像アップロード.active_strageはDBいるっぽいので必要ないこっちを使う
 gem 'carrierwave'
+
+gem 'meta-tags' # meta-tag設定 https://github.com/kpumuk/meta-tags
